@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { auth } from "../../utils/firebase";
+
 import { ReactComponent as Logo } from "../../assets/images/crown.svg";
 import "./styles.scss";
 
-export default function Header() {
+export default function Header({ user }) {
   return (
     <header className="header">
       <Link className="logo-container" to="/">
@@ -18,6 +20,15 @@ export default function Header() {
         <Link className="option" to="/contact">
           CONTACT
         </Link>
+        {user ? (
+          <div className="option" onClick={() => auth.signOut()}>
+            SIGN OUT
+          </div>
+        ) : (
+          <Link className="option" to="/signin">
+            SIGN IN
+          </Link>
+        )}
       </div>
     </header>
   );
