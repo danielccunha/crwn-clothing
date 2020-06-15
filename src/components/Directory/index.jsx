@@ -4,7 +4,7 @@ import MenuItem from "../MenuItem";
 
 import "./styles.scss";
 
-const Directory = () => {
+export default function Directory() {
   const [sections] = useState([
     {
       title: "hats",
@@ -47,6 +47,4 @@ const Directory = () => {
       ))}
     </div>
   );
-};
-
-export default Directory;
+}

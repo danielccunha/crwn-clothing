@@ -3,11 +3,14 @@ import { useHistory } from "react-router-dom";
 
 import "./styles.scss";
 
-const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
+export default function MenuItem({ title, imageUrl, size, linkUrl }) {
   const history = useHistory();
 
   return (
-    <div className={`menu-item ${size}`} onClick={() => history.push(linkUrl)}>
+    <div
+      className={`menu-item ${size ?? ""}`}
+      onClick={() => history.push(linkUrl)}
+    >
       <div
         className="background-image"
         style={{ backgroundImage: `url(${imageUrl})` }}
@@ -18,6 +21,4 @@ const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
       </div>
     </div>
   );
-};
-
-export default MenuItem;
+}
