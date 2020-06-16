@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Routes from "./routes";
-import { auth } from "./utils/firebase";
+import { auth } from "./config/firebase";
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
