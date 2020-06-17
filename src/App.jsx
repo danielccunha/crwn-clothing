@@ -7,9 +7,15 @@ function App() {
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
-    return auth.onAuthStateChanged((user) => {
-      createUserDocument(user);
-      return setCurrentUser(user);
+    return auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserDocument(userAuth);
+        return userRef.onSnapshot((snapshot) => {
+          setCurrentUser({ id: snapshot.id, ...snapshot.data() });
+        });
+      }
+
+      return setCurrentUser(userAuth);
     });
   }, []);
 

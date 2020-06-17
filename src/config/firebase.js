@@ -20,7 +20,9 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 export const createUserDocument = async (user, additionalData = {}) => {
-  if (!user) return;
+  if (!user) {
+    return;
+  }
 
   const userRef = firestore.doc(`users/${user.uid}`);
   const snapshot = await userRef.get();
