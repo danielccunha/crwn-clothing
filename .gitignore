@@ -26,3 +26,6 @@ yarn-error.log*
 .env
 .env.production
 .env.test
+
+# visual studio code settings
+.vscode/settings.json
