@@ -1,19 +1,30 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import FormInput from "../FormInput";
 import CustomButton from "../CustomButton";
-import { signInWithGoogle } from "../../config/firebase";
+
+import { auth, signInWithGoogle } from "../../config/firebase";
 
 import "./styles.scss";
 
 export default function SignIn() {
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setEmail("");
-    setPassword("");
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      return history.push("/");
+    } catch (error) {
+      console.error(error);
+    }
+
+    return setPassword("");
   };
 
   return (
