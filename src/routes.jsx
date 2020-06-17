@@ -1,22 +1,32 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import SignInAndSignUp from "./pages/SignInAndSignUp";
 
-const Routes = () => {
+const Routes = ({ currentUser }) => {
   return (
     <BrowserRouter>
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/shop" component={Shop} />
-        <Route path="/signin" component={SignInAndSignUp} />
+        <Route
+          path="/signin"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
+          }
+        />
       </Switch>
     </BrowserRouter>
   );
 };
 
-export default Routes;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+export default connect(mapStateToProps)(Routes);

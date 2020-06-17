@@ -1,7 +1,8 @@
 import { SET_CURRENT_USER } from "./types";
 
+const storedUser = localStorage.getItem("user");
 const INITIAL_STATE = {
-  currentUser: null,
+  currentUser: storedUser ? JSON.parse(storedUser) : null,
 };
 
 export default (state = INITIAL_STATE, action = {}) => {
@@ -9,6 +10,7 @@ export default (state = INITIAL_STATE, action = {}) => {
 
   switch (type) {
     case SET_CURRENT_USER:
+      localStorage.setItem("user", JSON.stringify(payload));
       return { ...state, currentUser: payload };
     default:
       return state;
