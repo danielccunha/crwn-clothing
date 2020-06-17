@@ -6,10 +6,10 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import SignInAndSignUp from "./pages/SignInAndSignUp";
 
-const Routes = ({ user }) => {
+const Routes = () => {
   return (
     <BrowserRouter>
-      <Header user={user} />
+      <Header />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/shop" component={Shop} />

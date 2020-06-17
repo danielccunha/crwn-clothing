@@ -1,5 +1,6 @@
-import { createAction } from "typesafe-actions";
-
 import { SET_CURRENT_USER } from "./types";
 
-export const setCurrentUser = (user) => createAction(SET_CURRENT_USER, user);
+export const setCurrentUser = (user) => ({
+  type: SET_CURRENT_USER,
+  payload: user,
+});
