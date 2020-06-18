@@ -1,9 +1,20 @@
 import { TOGGLE_CART_HIDDEN, ADD_ITEM } from "./types";
-import { addItemToCart } from "./utils";
 
 const INITIAL_STATE = {
   hidden: true,
   items: {},
+};
+
+const addItemToCart = (items, item) => {
+  const existentItem = items[item.id];
+
+  return {
+    ...items,
+    [item.id]: {
+      ...item,
+      quantity: existentItem ? existentItem.quantity + 1 : 1,
+    },
+  };
 };
 
 export default (state = INITIAL_STATE, action = {}) => {
