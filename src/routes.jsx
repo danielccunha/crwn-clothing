@@ -4,10 +4,12 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import Header from "./components/Header";
+import { selectCurrentUser } from "./store/ducks/user/selectors";
+
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
+import Checkout from "./pages/Checkout";
 import SignInAndSignUp from "./pages/SignInAndSignUp";
-import { selectCurrentUser } from "./store/ducks/user/selectors";
 
 const Routes = ({ currentUser }) => {
   return (
@@ -16,6 +18,7 @@ const Routes = ({ currentUser }) => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/shop" component={Shop} />
+        <Route path="/checkout" component={Checkout} />
         <Route
           path="/signin"
           render={() =>
