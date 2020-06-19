@@ -28,7 +28,10 @@ function CheckoutItem({ item, removeItem, decreaseItem, increaseItem }) {
         </div>
       </span>
       <span className="price">${price}</span>
-      <div className="remove-button" onClick={() => removeItem(item)}>
+      <div
+        className="remove-button unselectable"
+        onClick={() => removeItem(item)}
+      >
         &#10005;
       </div>
     </div>
