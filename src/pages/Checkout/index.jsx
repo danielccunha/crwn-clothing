@@ -7,6 +7,7 @@ import {
   selectCartTotal,
 } from "../../store/ducks/cart/selectors";
 import CheckoutItem from "../../components/CheckoutItem";
+import StripeCheckoutButton from "../../components/StripeCheckoutButton";
 
 import "./styles.scss";
 
@@ -38,6 +39,8 @@ function Checkout({ items, total }) {
       <div className="total">
         <span>TOTAL: ${total}</span>
       </div>
+
+      <StripeCheckoutButton price={total} />
     </div>
   );
 }
