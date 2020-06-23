@@ -2,18 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import CollectionPreview from "../CollectionPreview";
 import { selectCollectionsForPreview } from "../../store/ducks/shop/selectors";
-
-import "./styles.scss";
+import CollectionPreview from "../CollectionPreview";
+import { Container } from "./styles";
 
 function CollectionsOverview({ collections }) {
   return (
-    <div className="collections-overview">
+    <Container>
       {collections.map((collection) => (
         <CollectionPreview key={collection.id} {...collection} />
       ))}
-    </div>
+    </Container>
   );
 }
 

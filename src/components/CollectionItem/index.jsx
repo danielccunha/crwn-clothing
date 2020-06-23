@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import CustomButton from "../CustomButton";
 import { addItem } from "../../store/ducks/cart/actions";
+import { Container, Image, Footer, Name, Price, AddButton } from "./styles";
 
 import "./styles.scss";
 
@@ -10,16 +10,18 @@ function CollectionItem({ item, addItem }) {
   const { name, price, imageUrl } = item;
 
   return (
-    <div className="collection-item">
-      <div className="image" style={{ backgroundImage: `url(${imageUrl})` }} />
-      <div className="collection-footer">
-        <span className="name">{name}</span>
-        <span className="price">${price}</span>
-      </div>
-      <CustomButton inverted onClick={() => addItem(item)}>
+    <Container>
+      <Image imageUrl={imageUrl} />
+
+      <Footer>
+        <Name>{name}</Name>
+        <Price>{price}</Price>
+      </Footer>
+
+      <AddButton inverted onClick={() => addItem(item)}>
         Add to cart
-      </CustomButton>
-    </div>
+      </AddButton>
+    </Container>
   );
 }
 
