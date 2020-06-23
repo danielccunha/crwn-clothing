@@ -7,13 +7,7 @@ import { selectCartHidden } from "../../store/ducks/cart/selectors";
 import { selectCurrentUser } from "../../store/ducks/user/selectors";
 import CartIcon from "../CartIcon";
 import CartDropdown from "../CartDropdown";
-import {
-  Container,
-  LogoContainer,
-  OptionsContainer,
-  OptionDiv,
-  OptionLink,
-} from "./styles";
+import { Container, LogoContainer, OptionsContainer, Option } from "./styles";
 import { ReactComponent as Logo } from "../../assets/images/crown.svg";
 
 function Header({ currentUser, hidden }) {
@@ -24,12 +18,14 @@ function Header({ currentUser, hidden }) {
       </LogoContainer>
 
       <OptionsContainer>
-        <OptionLink to="/shop">SHOP</OptionLink>
-        <OptionLink to="/contact">CONTACT</OptionLink>
+        <Option to="/shop">SHOP</Option>
+        <Option to="/contact">CONTACT</Option>
         {currentUser ? (
-          <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
+          <Option as="div" onClick={() => auth.signOut()}>
+            SIGN OUT
+          </Option>
         ) : (
-          <OptionLink to="/signin">SIGN IN</OptionLink>
+          <Option to="/signin">SIGN IN</Option>
         )}
         <CartIcon />
       </OptionsContainer>
