@@ -3,35 +3,33 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { useHistory } from "react-router-dom";
 
-import CustomButton from "../CustomButton";
 import CartItem from "../CartItem";
 import { selectCartItems } from "../../store/ducks/cart/selectors";
 import { toggleCartHidden } from "../../store/ducks/cart/actions";
-
-import "./styles.scss";
+import { Container, Items, EmptyMessage, Button } from "./styles";
 
 function CartDropdown({ items, dispatch }) {
   const history = useHistory();
 
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items">
+    <Container>
+      <Items>
         {items.length ? (
           items.map((item) => <CartItem key={item.id} item={item} />)
         ) : (
-          <span className="empty-message">Your cart is empty.</span>
+          <EmptyMessage>Your cart is empty.</EmptyMessage>
         )}
-      </div>
+      </Items>
 
-      <CustomButton
+      <Button
         onClick={() => {
           history.push("/checkout");
           dispatch(toggleCartHidden());
         }}
       >
         GO TO CHECKOUT
-      </CustomButton>
-    </div>
+      </Button>
+    </Container>
   );
 }
 
