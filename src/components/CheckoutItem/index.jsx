@@ -6,35 +6,49 @@ import {
   decreaseItem,
   increaseItem,
 } from "../../store/ducks/cart/actions";
-
-import "./styles.scss";
+import {
+  Container,
+  ImageContainer,
+  Field,
+  Quantity,
+  QuantityValue,
+  QuantityArrow,
+  RemoveButton,
+} from "./styles";
 
 function CheckoutItem({ item, removeItem, decreaseItem, increaseItem }) {
   const { name, quantity, price, imageUrl } = item;
 
   return (
-    <div className="checkout-item">
-      <div className="image-container">
+    <Container>
+      <ImageContainer>
         <img src={imageUrl} alt="Item" />
-      </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
-        <div className="arrow unselectable" onClick={() => decreaseItem(item)}>
+      </ImageContainer>
+
+      <Field>{name}</Field>
+
+      <Quantity>
+        <QuantityArrow
+          className="unselectable"
+          onClick={() => decreaseItem(item)}
+        >
           &#10094;
-        </div>
-        <span className="value">{quantity}</span>
-        <div className="arrow unselectable" onClick={() => increaseItem(item)}>
+        </QuantityArrow>
+        <QuantityValue>{quantity}</QuantityValue>
+        <QuantityArrow
+          className="unselectable"
+          onClick={() => increaseItem(item)}
+        >
           &#10095;
-        </div>
-      </span>
-      <span className="price">${price}</span>
-      <div
-        className="remove-button unselectable"
-        onClick={() => removeItem(item)}
-      >
+        </QuantityArrow>
+      </Quantity>
+
+      <Field>${price}</Field>
+
+      <RemoveButton className="unselectable" onClick={() => removeItem(item)}>
         &#10005;
-      </div>
-    </div>
+      </RemoveButton>
+    </Container>
   );
 }
 
