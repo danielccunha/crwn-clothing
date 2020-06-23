@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -8,37 +7,34 @@ import { selectCartHidden } from "../../store/ducks/cart/selectors";
 import { selectCurrentUser } from "../../store/ducks/user/selectors";
 import CartIcon from "../CartIcon";
 import CartDropdown from "../CartDropdown";
-
+import {
+  Container,
+  LogoContainer,
+  OptionsContainer,
+  OptionDiv,
+  OptionLink,
+} from "./styles";
 import { ReactComponent as Logo } from "../../assets/images/crown.svg";
-import "./styles.scss";
 
 function Header({ currentUser, hidden }) {
   return (
-    <header className="header">
-      <Link className="logo-container" to="/">
+    <Container>
+      <LogoContainer to="/">
         <Logo />
-      </Link>
+      </LogoContainer>
 
-      <div className="options">
-        <Link className="option" to="/shop">
-          SHOP
-        </Link>
-        <Link className="option" to="/contact">
-          CONTACT
-        </Link>
+      <OptionsContainer>
+        <OptionLink to="/shop">SHOP</OptionLink>
+        <OptionLink to="/contact">CONTACT</OptionLink>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
-            SIGN OUT
-          </div>
+          <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
         ) : (
-          <Link className="option" to="/signin">
-            SIGN IN
-          </Link>
+          <OptionLink to="/signin">SIGN IN</OptionLink>
         )}
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {!hidden && <CartDropdown />}
-    </header>
+    </Container>
   );
 }
 
