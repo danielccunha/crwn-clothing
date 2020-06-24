@@ -3,10 +3,9 @@ import { useHistory } from "react-router-dom";
 
 import FormInput from "../FormInput";
 import CustomButton from "../CustomButton";
+import { Container, Title, Buttons } from "./styles";
 
 import { auth, signInWithGoogle } from "../../config/firebase";
-
-import "./styles.scss";
 
 export default function SignIn() {
   const history = useHistory();
@@ -28,8 +27,8 @@ export default function SignIn() {
   };
 
   return (
-    <div className="sign-in">
-      <h2>I already have an account</h2>
+    <Container>
+      <Title>I already have an account</Title>
       <span>Sign in with your email and password.</span>
 
       <form onSubmit={handleSubmit}>
@@ -51,13 +50,13 @@ export default function SignIn() {
           required
         />
 
-        <div className="buttons">
+        <Buttons>
           <CustomButton type="submit">Sign In</CustomButton>
           <CustomButton onClick={signInWithGoogle} type="button" isGoogleSignIn>
             Sign In with Google
           </CustomButton>
-        </div>
+        </Buttons>
       </form>
-    </div>
+    </Container>
   );
 }

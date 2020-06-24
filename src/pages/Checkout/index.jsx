@@ -8,40 +8,39 @@ import {
 } from "../../store/ducks/cart/selectors";
 import CheckoutItem from "../../components/CheckoutItem";
 import StripeCheckoutButton from "../../components/StripeCheckoutButton";
-
-import "./styles.scss";
+import { Container, Header, HeaderBlock, Total } from "./styles";
 
 function Checkout({ items, total }) {
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
+    <Container>
+      <Header>
+        <HeaderBlock>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Remove</span>
-        </div>
-      </div>
+        </HeaderBlock>
+      </Header>
 
       {items.map((item) => (
         <CheckoutItem key={item.id} item={item} />
       ))}
 
-      <div className="total">
+      <Total>
         <span>TOTAL: ${total}</span>
-      </div>
+      </Total>
 
       <StripeCheckoutButton price={total} />
-    </div>
+    </Container>
   );
 }
 

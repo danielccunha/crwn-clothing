@@ -3,10 +3,9 @@ import { useHistory } from "react-router-dom";
 
 import FormInput from "../FormInput";
 import CustomButton from "../CustomButton";
+import { Container, Title } from "./styles";
 
 import { auth, createUserDocument } from "../../config/firebase";
-
-import "./styles.scss";
 
 export default function SignUp() {
   const history = useHistory();
@@ -37,8 +36,8 @@ export default function SignUp() {
   };
 
   return (
-    <div className="sign-up">
-      <h2 className="title">I do not have an account</h2>
+    <Container>
+      <Title>I do not have an account</Title>
       <span>Sign up with your email and password</span>
 
       <form className="sign-up-form" onSubmit={handleSubmit}>
@@ -75,6 +74,6 @@ export default function SignUp() {
         />
         <CustomButton type="submit">Sign Up</CustomButton>
       </form>
-    </div>
+    </Container>
   );
 }
