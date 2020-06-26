@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
-import { firestore, convertCollectionsSnapshot } from "../../config/firebase";
-import { updateCollections } from "../../store/ducks/shop/actions";
+import { fetchCollections } from "../../store/ducks/shop/actions";
+import { selectIsCollectionLoaded } from "../../store/ducks/shop/selectors";
 
 import CollectionsOverview from "../../components/CollectionsOverview";
 import WithSpinner from "../../components/WithSpinner";
@@ -12,17 +13,10 @@ import Collection from "../Collection";
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 const CollectionWithSpinner = WithSpinner(Collection);
 
-function Shop({ match, updateCollections }) {
-  const [loading, setLoading] = useState(true);
-
+function Shop({ match, isLoaded, fetchCollections }) {
   useEffect(() => {
-    const collectionRef = firestore.collection("collections");
-    collectionRef.get().then((snapshot) => {
-      const collections = convertCollectionsSnapshot(snapshot);
-      updateCollections(collections);
-      setLoading(false);
-    });
-  }, [updateCollections]);
+    fetchCollections();
+  }, [fetchCollections]);
 
   return (
     <div>
@@ -30,21 +24,25 @@ function Shop({ match, updateCollections }) {
         exact
         path={`${match.path}`}
         render={(props) => (
-          <CollectionsOverviewWithSpinner isLoading={loading} {...props} />
+          <CollectionsOverviewWithSpinner isLoading={!isLoaded} {...props} />
         )}
       />
       <Route
         path={`${match.path}/:collectionId`}
         render={(props) => (
-          <CollectionWithSpinner isLoading={loading} {...props} />
+          <CollectionWithSpinner isLoading={!isLoaded} {...props} />
         )}
       />
     </div>
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  updateCollections: (collections) => dispatch(updateCollections(collections)),
+const mapStateToProps = createStructuredSelector({
+  isLoaded: selectIsCollectionLoaded,
 });
 
-export default connect(null, mapDispatchToProps)(Shop);
+const mapDispatchToProps = (dispatch) => ({
+  fetchCollections: () => dispatch(fetchCollections()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);
