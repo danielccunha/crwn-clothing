@@ -1,3 +1,4 @@
+import mapKeys from "lodash/mapKeys";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
@@ -41,8 +42,39 @@ export const createUserDocument = async (user, additionalData = {}) => {
   return userRef;
 };
 
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd = []
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+  const batch = firestore.batch();
+
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+
+  await batch.commit();
+};
+
+export const convertCollectionsSnapshot = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      id: doc.id,
+      routeName: encodeURI(title.toLowerCase()),
+      title,
+      items,
+    };
+  });
+
+  return mapKeys(transformedCollection, "title");
+};
+
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
+
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
