@@ -9,7 +9,7 @@ export const selectCollections = createSelector(
 
 export const selectCollectionsForPreview = createSelector(
   [selectShop],
-  (shop) => Object.values(shop.collections)
+  (shop) => Object.values(shop.collections ?? {})
 );
 
 export const selectCollection = (urlParam) => {

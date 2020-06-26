@@ -64,12 +64,13 @@ export const convertCollectionsSnapshot = (collections) => {
     return {
       id: doc.id,
       routeName: encodeURI(title.toLowerCase()),
+      reducedTitle: title.toLowerCase(),
       title,
       items,
     };
   });
 
-  return mapKeys(transformedCollection, "title");
+  return mapKeys(transformedCollection, "reducedTitle");
 };
 
 const provider = new firebase.auth.GoogleAuthProvider();
