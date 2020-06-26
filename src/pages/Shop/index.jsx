@@ -1,19 +1,13 @@
 import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
 import { fetchCollections } from "../../store/ducks/shop/actions";
-import { selectIsCollectionLoaded } from "../../store/ducks/shop/selectors";
 
-import CollectionsOverview from "../../components/CollectionsOverview";
-import WithSpinner from "../../components/WithSpinner";
-import Collection from "../Collection";
+import CollectionsOverviewContainer from "../../components/CollectionsOverview/container";
+import CollectionContainer from "../Collection/container";
 
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionWithSpinner = WithSpinner(Collection);
-
-function Shop({ match, isLoaded, fetchCollections }) {
+function Shop({ match, fetchCollections }) {
   useEffect(() => {
     fetchCollections();
   }, [fetchCollections]);
@@ -23,26 +17,18 @@ function Shop({ match, isLoaded, fetchCollections }) {
       <Route
         exact
         path={`${match.path}`}
-        render={(props) => (
-          <CollectionsOverviewWithSpinner isLoading={!isLoaded} {...props} />
-        )}
+        component={CollectionsOverviewContainer}
       />
       <Route
         path={`${match.path}/:collectionId`}
-        render={(props) => (
-          <CollectionWithSpinner isLoading={!isLoaded} {...props} />
-        )}
+        component={CollectionContainer}
       />
     </div>
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  isLoaded: selectIsCollectionLoaded,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   fetchCollections: () => dispatch(fetchCollections()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Shop);
+export default connect(null, mapDispatchToProps)(Shop);
